@@ -1570,7 +1570,7 @@ void Bfinder::BranchOut2MuTk(
       if (abs(tk_it1->charge()) != 1) continue;
       
       TLorentzVector v4_tk1;
-      v4_tk1.SetPtEtaPhiM(tk_it1->pt(),tk_it1->eta(),tk_it1->phi(),KAON_MASS);
+      v4_tk1.SetPtEtaPhiM(tk_it1->pt(),tk_it1->eta(),tk_it1->phi(), Tk_MASS);
   
       if ((v4_mu1+v4_mu2+v4_tk1).Mag()<mass_window[0]-0.2 || (v4_mu1+v4_mu2+v4_tk1).Mag()>mass_window[1]+0.2) continue;
       if((v4_mu1+v4_mu2+v4_tk1).Pt()<bPtCut_)continue;

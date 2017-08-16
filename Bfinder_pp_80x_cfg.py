@@ -15,9 +15,11 @@ process.options = cms.untracked.PSet( wantSummary = cms.untracked.bool(False) )
 process.source = cms.Source("PoolSource",
     fileNames = cms.untracked.vstring("/store/data/Run2016B/Charmonium/AOD/23Sep2016-v1/50000/02F5116E-2986-E611-BFEA-02163E011437.root")
 )
+#/store/mc/RunIISummer16DR80Premix/BcToJPsiBcPt8Y2p5_MuNoCut_13TeV-bcvegpy2-pythia8/AODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/90000/028E2B40-F115-E711-9788-FA163E1A91FB.root")
+##/store/data/Run2016B/Charmonium/AOD/23Sep2016-v1/50000/02F5116E-2986-E611-BFEA-02163E011437.root file for data 2015
 
 ## Maximal Number of Events
-process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(200) )
+process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1) )
 
 process.load('HLTrigger.HLTfilters.hltHighLevel_cfi')
 process.hltHighLevel.HLTPaths = cms.vstring('HLT_DoubleMu4_3_Jpsi_Displaced_v*')
@@ -27,9 +29,11 @@ process.load("Configuration.Geometry.GeometryRecoDB_cff")
 process.load("Configuration.StandardSequences.FrontierConditions_GlobalTag_cff")
 from Configuration.AlCa.GlobalTag import GlobalTag
 if runOnMC:
-    process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:run2_mc')
+    process.GlobalTag = GlobalTag(process.GlobalTag, '80X_mcRun2_asymptotic_2016_TrancheIV_v6') #auto:run2_mc is the default one
 else:
-    process.GlobalTag = GlobalTag(process.GlobalTag, '80X_dataRun2_2016SeptRepro_v6')# use 'auto:run2_data' for 2016H
+    process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:run2_data')
+# use 'auto:run2_data' for 2016H
+# "80X_dataRun2_2016SeptRepro_v5
 process.load("Configuration.StandardSequences.MagneticField_cff")
 
 ## switch to uncheduled mode
@@ -76,15 +80,16 @@ else :
 ### ExcitedBc analyizer
 process.analysis = cms.EDAnalyzer('Bfinder',
         Bchannel                = cms.vint32(
-                1,#RECONSTRUCTION: J/psi + K
-                0,#RECONSTRUCTION: J/psi + Pi
+                0,#RECONSTRUCTION: J/psi + K
+                1,#RECONSTRUCTION: J/psi + Pi
                 0,#RECONSTRUCTION: J/psi + Ks 
                 0,#RECONSTRUCTION: J/psi + K* (K+, Pi-)
                 0,#RECONSTRUCTION: J/psi + K* (K-, Pi+)
-                1,#RECONSTRUCTION: J/psi + phi
+                0,#RECONSTRUCTION: J/psi + phi
                 0,#RECONSTRUCTION: J/psi + pi pi <= psi', X(3872), Bs->J/psi f0
                 0,#RECONSTRUCTION: J/psi + lambda (p+, pi-) 
-                0,),#RECONSTRUCTION: J/psi + lambda (p-, pi+) 
+                0,), #RECONSTRUCTION: J/psi + lambda (p-, pi+) 
+               
     MuonTriggerMatchingPath = cms.vstring("HLT_Dimuon*", "HLT_DoubleMu*"),
         HLTLabel        = cms.InputTag('TriggerResults::HLT'),
     GenLabel        = cms.InputTag('genParticles'),
