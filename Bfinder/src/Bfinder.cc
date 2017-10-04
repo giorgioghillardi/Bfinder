@@ -1235,6 +1235,7 @@ void Bfinder::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
                     abs(it_gen->pdgId()) == 511 ||//B_0
                     abs(it_gen->pdgId()) == 521 ||//B_+-
                     abs(it_gen->pdgId()) == 531 ||//B_s
+		    abs(it_gen->pdgId()) == 541 ||//B_c
                     abs(it_gen->pdgId()) == 130 ||//KL
                     //abs(it_gen->pdgId()) == 311 ||//K0
                     //abs(it_gen->pdgId()) == 321 ||//K+
